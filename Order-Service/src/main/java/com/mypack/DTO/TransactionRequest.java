@@ -1,0 +1,15 @@
+package com.mypack.DTO;
+
+import com.mypack.entity.Order;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TransactionRequest {
+
+    private Payment payment;
+    private Order order;
+}
