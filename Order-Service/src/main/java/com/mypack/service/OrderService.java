@@ -3,6 +3,7 @@ package com.mypack.service;
 import com.mypack.DTO.Payment;
 import com.mypack.DTO.TransactionRequest;
 import com.mypack.DTO.TransactionResponse;
+import com.mypack.config.RestClientConfig;
 import com.mypack.entity.Order;
 import com.mypack.repository.OrderRepository;
 import org.aspectj.weaver.ast.Or;
@@ -21,6 +22,9 @@ public class OrderService {
     @Autowired
     RestClient restClient;
 
+    @Autowired
+    RestClientConfig config;
+
     public TransactionResponse saveOrder(TransactionRequest request)
     {
         Order order=request.getOrder();
@@ -29,7 +33,7 @@ public class OrderService {
         payment.setAmount(order.getPrice());
         // Using RestClient to perform the POST call
         Payment paymentResponse = restClient.post()
-                .uri("/payment/doPayment")
+                .uri(config.getDoPaymentPath())
                 .body(payment)
                 .retrieve()
                 .body(Payment.class);
